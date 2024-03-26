@@ -1,0 +1,41 @@
+#https://leetcode.com/problems/reverse-integer/
+class Solution:
+    
+    def reverse(self, x: int) -> int:
+        import math
+        
+        lowerbound = int(-math.pow(2,31))
+        upperbound = int(math.pow(2,31) -1)
+        negative = False
+
+        if ((x >= upperbound) or (x <= lowerbound)): 
+            return 0
+        elif x == 0:
+            return 0
+        elif x < 0:
+            negative = True
+            x = x * -1
+        
+        
+        digits = int(math.log10(x))
+        array = []
+        remainder = x
+        
+        for i in range(digits, -1, -1):
+            number = remainder // math.pow(10,i)
+            array.append(int(number))
+            
+            remainder = remainder - number * math.pow(10,i) 
+        total = 0
+        count = 0
+        for i in array:
+            total = total + i * math.pow(10,count) 
+            count = count + 1 
+        
+        if negative == True:
+            total = total * -1
+
+        if ((total >= upperbound) or (total <= lowerbound)):
+            total = 0
+
+        return int(total)
